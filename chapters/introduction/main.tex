@@ -1,0 +1,110 @@
+\chapter{Introduction} \label{ch:introduction}
+The aim of this thesis is to look at how one can simplify the development of hybrid board games.
+The next sections of this chapter describe the context and motivation of the thesis. The research
+questions and research method are also described. The final section, \ref{sec:introoutline}, gives an outline of the report.
+
+\section{Motivation} \label{sec:motivation}
+
+\subsubsection{Hybrid board games are more immersive and than traditional board games}
+The limitations of traditional board games lies in the static tokens and constrains. It is up to the players to understand the concepts and rules, as well as imagine or enforce the consequences of their actions. A digital game on the other hand is more dynamic with a richer interface which can be more absorbing. Consequences of a players actions can be enforced and accompanied by sound, vibration and graphical simulation. But digital games often take focus away from the social aspect of their traditional counterparts.
+
+The hope for hybrid board games is an immersive, dynamic game play that also keeps the social aspect of face-to-face interaction.
+
+Previous work on hybrid board games has been done both at NTNU with Don't  Panic\cite{di2012don} and in other projects\cite{al2008designing, bakker2007weathergods} showing good results.
+
+One comparison between tabletop and traditional board games even indicate that "senior citizens found the tabletop version of the game to be more immersive and absorbing [than regular board games]"\cite{al2008designing}.
+
+\subsubsection{Existing tools can be difficult to set up}
+In the testing of Don't Panic\cite{di2012don}, the users enjoyed the game play and showed enough interest in the game to request to keep a version of the game. The challenge with this was the complexity of setting the game up. It required turning on an off-site server that held a database and worked as a sort of game hub, as well as manually starting scripts in on-site components. The result was that it wasn't feasible for the players to initialize the setup of the board game by themselves. 
+
+In addition to this, much time had been put into programming the devices. Creating a replica of the game required much more than ordering a new set of hardware.
+
+\subsubsection{Existing tools can be expensive}
+In other more established tools for hybrid board games, the interaction is typically done via tabletop devices\cite{al2008designing}, such as Microsoft Surface Hub\footnote{\href{https://www.microsoft.com/microsoft-surface-hub/en-us}{www.microsoft.com/microsoft-surface-hub/en-us}}. These devices, similar to a table with a large touch screen on top, restrict the mobility of the game, require a dedicated physical space and remain a large investment in terms of money.
+
+\subsubsection{Creating hybrid board games is time consuming}
+While there are plenty tools for creating online games, and a few for creating hybrid tabletop-based games, we have been unsuccessful in finding existing tools for creating hybrid board games that uses small hardware tokens. 
+
+The result when implementing Don't Panic was creating custom scripts and communication for the different pawns and implementation of game logic. Needless to say, this was very time consuming.
+
+\section{Problem definition}
+Based on the observations made in the previous section, we see that hybrid board games pose several problems.
+
+The cost for developers to develop new hybrid board games is terms of time is very big. They are required to create most of their game from scratch, as there are few suitable existing tools. Due to the different types of components in a hybrid game, they will also have to know several kinds of technology.
+
+Also in terms of money, the cost for developers is big. Due to the lack of standard tools, creating a game that makes use of a certain token\footnote{\emph{Token}: A term we will use in this thesis a lot to note a tangible piece of hardware used in a hybrid game. E.g. a digital pawn.} will require acquiring that token, since one cannot be certain it works without actual testing.
+
+For players, the acquisition cost for the required hardware is huge if we consider the tabletop solutions. If we on the other hand consider hybrid games with tokens, the lack of mature software solution require players to have time and technical knowledge to set up and use.
+
+% \begin{itemize}
+% \item{The cost for developers to develop new hybrid board games in acquiring hardware and software tools should be a minimum}
+% \item{The time invested by developers to learn new languages and tools, should be kept to a minimum}
+% \item{Developing the game should be de-coupled from the tangible hardware used during playing, so that a game can be replicated easily for different types of hardware.}
+% \item{For players, the acquisition cost for the required hardware should be as low as possible}
+% \item{For players wanting to play such games, it should be easy and quick to initializie the hybrid games.}
+% \end{itemize}
+
+
+% Not sure where or if to include this
+%
+%\subsection{How digital interfaces enhance the experience of playing a board game}
+%\subsubbsection{A larger library of events}
+% A digital board game can hold a larger library of cards, colors and events, as a digital object is  dynamic. A pawn can be of different colors depending on the situation. A screen can show different cards.
+%
+%\subsubsection{Simplify introduction to the game}
+% A digital tool can describe the game in a richer way (through video, sound) and provide greater help (faq, integrated forums) than traditional paper manuals.
+%
+%\subsubsection{Simplify modification and updates}
+%Modification of a digital board game can become as easy as clicking and update button, or selecting a different mode.
+%
+%\subsubsection{Encourage creating of own games}
+%An open source board game kit with hardware components and an open API is can encourage hobbyentusiast and game interested developers to create their own games.
+%
+%
+\section{Research questions}
+
+Below are our research questions. The first being a main question, that embraces those that follow.
+
+\textbf{RQ1: How can we lower the barrier for developers to start creating hybrid board games?}
+We do wish for as many as possible to start creating hybrid board games. In order to get there, we need to lower the barrier so that more developers play around with the technology and get interested.
+
+\textbf{RQ2: How can we lower the investment required by developers, both in time and money, in order to create hybrid board games?}
+One of the main obstacles we have seen from previous work is the amount of time involved. If creating hybrid board games was quick and cheap, more developers would do the same.
+
+\textbf{RQ3: How can we facilitate developers so that they are able to simplify the setup of such board games, in order to make it easy for players to acquire and play hybrid games?}
+We believe in the importance of involving non-technical people in these games. If developers are able to create hybrid board games that \emph{everyone} is able to set up and use, this opens a range of new possibilities, including creating a business around it.
+
+\section{Research method}
+This thesis takes an experiment approach to developing a platform for creating hybrid board games. Due to practical reasons, adjustments to the development process and requirements has come by evaluation from ourselves, without feedback from outside user groups.
+
+The process led to the creating of a platform, to address challenges from previous work done with hybrid games. First by review of relevant literature and current workflow for creating these games. This was followed by a design process and implementation phase, before we evaluated how the resulting platform addressed the identified challenges.
+
+\section{Contribution}
+This thesis has resulted in a AnyBoard, a JavaScript-based platform for creating hybrid board games. It is openly available on \href{https://github.com/tomfa/anyboardjs}{github.com/tomfa/anyboardjs}.
+
+The location also includes extensive documentation, several examples, tests, and drivers as well as firmware for three different tokens. These are also described in appendix \ref{appendix:doc}, \ref{appendix:examples}, \ref{appendix:tests} and \ref{appendix:tokens} respectively. For the source code itself, we refer to the Github repository in the previous paragraph.
+
+The thesis has already formed the basis for a published article from our institute, \emph{Making interactive board games to learn: Reflections on AnyBoard}\cite{anyboard_article}. This article is included in appendix \ref{appendix:article}
+
+In addition, we'd like to point to the Future work in chapter \ref{sec:future_work} where we suggest different directions and features for  AnyBoard to continue.
+
+\subsection{Limitations}
+AnyBoard itself is compatible with any JavaScript-environment. As such, it can be integrated with any other JS-framework or game engine without issues. For communication with tokens, AnyBoard depends on plugin-drivers with a firmware compatible with that driver. These drivers can pose their own limitations.
+
+The drivers and firmware for three types of tokens we have made, can be seen in appendix \ref{appendix:tokens}. These require Evothings bluetooth libraries and Cordova libraries. This limits their use to Android and iOS environments. 
+
+\section{Thesis outline} \label{sec:introoutline}
+Here we describe the structure of the report. The report is split into seven section.
+
+The first section (chapter 1) consists of the introduction to and motivation for this thesis and the work that has been done. We explain the why, what and how of the thesis, providing a problem definition, research questions and method.
+
+Section two (chapter 2) contains a problem elaboration. We take a look at previous related work, and characteristics of common board games as well as what concepts they include. A description of the life cycle of developing hybrid board games and which roles are involved follows, and thereafter we identify common challenges AnyBoard should address. We then illustrate a rough outline of the platform and the parts it should consist of, before we finally present a set of high level requirements for AnyBoard.
+
+In the third section (chapter 3), we evaluate different tools and platforms for AnyBoard to make use of or build upon. Creating a hybrid digital game is a complex process, and here we look at existing tools that can be used in collaboration to simplify the complexity and make use of existing communities.
+
+The fourth section (chapter 4-5) involves the design and implementation of AnyBoard. We present non-functional and functional requirements in section \ref{sec:requirements}, followed by a more specific architecture for AnyBoard. In chapter \ref{ch:implementation} we present the implementation. Details on the parts that was developed, the game entities and token communication protocol among other things. 
+
+Evaluating the result is done in the fifth section (chapter 6). We implement two common game concepts, both with and without the use of AnyBoard. First, we "draw" cards from a deck, represented by a printer. Secondly, we answer a quiz by moving tokens on fields representing alternatives. We evaluate how AnyBoard made this easier, and compare it to the implementation without the use of AnyBoard.
+
+Lastly (chapter 7), we summarize and discuss the what could've been done better. Which parts of the thesis gave value and not. We explain what this mean for our research questions, before we provide our suggestions and thoughts around future work.
+\newpage

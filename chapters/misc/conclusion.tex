@@ -1,0 +1,128 @@
+\chapter{Conclusion} \label{ch:conclusion}
+Here is some conclusions.
+
+- About the present state of art.
+
+- About the usefulness of this thesis.
+
+\section{Summary}
+A summary of the work that was done
+
+\section{Discussion}
+\label{se:discussion}
+\emph{TODO: Rewrite from bulletlist to actually something}
+
+1) Shouldn't have spent time with Phaser OR should've implemented something with it. Now I just spent time looking at something that gave no value, really. = Time down the drain
+
+2) Happy being decoupled from any other library og framework. There are -SO- many relevant libraries and options for game development in JavaScript, that being dependant on any library in particular might lead to AnyBoard being outdated and dependant on something that is no longer maintained. Should've thought about this earlier though, and as such skipped thinking about Timers and WebModule. There exists such things already, no need in making it again. \textbf{= Happy about it ending up decoupled, but could've made more out of it if I was aware of it earlier.}
+
+3) Very happy with testing, I believe it provides great value, and is essential for anyone daring to build upon this library. \textbf{= Tests give value by examples, by a type of documentation, and by providing lower barrier to continue development. One of the best decisions}. 
+
+4) Very happy with creating automated docs based on JSDoc. \textbf{=It provides so much value by giving autocompletion in IDEs (atleast JetBrains Webstorm), AND Github doc AND inline doc.}
+
+5) Should've preferably tested the library against potential users instead of doing it all by myself. It lacks feedback from our target audience.
+
+6) In hindsight, it's very stupid for tokens to have to respond "NO" on whether or not they have any capability. If they don't recognize a command, they already respond 0 for telling that the command was unrecognized. They should be merged, so we can make code base and logic smaller, as well as handle more events correctly.
+
+\newpage
+
+\section{Future Work} \label{sec:future_work}
+Here is some thoughts and ideas for future work. What has value and should be taken further. What parts should be improved. 
+
+\subsection{Ensure Stability in bluetooth communication}
+During the late stages of implementation, we discovered that the bluetooth drivers for AnyBoard Token, AnyBoard Bean Token and AnyBoard Printer were causing packet losses when several commands were sent at the same time. The reason for this was a naive sending of data to the bluetooth devices. There was no throttling, which caused an overload on the tokens.
+
+Throttling was implemented to increase stability, with great success. However, there are some limitations to the implementation, which we think should be addressed.
+
+If a token does not receieve a command, as illustrateed in [TODO: refer to impl. chapter graph], or does not confirm the received command, or this confirmation is lost, AnyBoard will not be able to determine whether or not the executed command was received or completed by a token. In the current implementation, AnyBoard will timeout after 2 seconds, and simply go on to the next command, ignoring the possibly lost one.
+
+This can lead to inconsistent outcomes, and unreliablity issues and annoiances. 
+
+A solution could be to give each packet an identifier so that both client and token can confirm or replay og ignore commands and responds in a reliable fashion, so that every packet is delivered in order.
+
+It's worth noting that the sourcecode that holds the bluetooth communication handling, all resides in the individuaal drivers for each chip (pr now one for rfduino and one for the bean). As these draw on very of the same functionality, we believe it would be benefitial to subtract the common logic in these two drivers into a common base class that they instead inherit from.
+
+\subsection{Persistant storage}
+AnyBoard could facilitate for developers to get easy access to persistant storage. A small library could provide access for developers to a simple database or other persistant storage, for storing player names, previously connected devices etc. These capabilities could, among other things, reduce setup time for players.
+
+This functionality might be considered unnecessary, though, as there is access to persistent storage in HTML5 is very easy to learn and use. Phaser.io, which is the game engine we've looked to for ensuring compatibility has opted to not provide such a functionality\footnote{Phaser game engine recommends using HTML5 localstorage for persistant storage according to \href{http://www.html5gamedevs.com/topic/3765-preferred-way-of-saving-data/}{html5gamedevs.com/topic/3765-preferred-way-of-saving-data/} - Phaser forums} due to the simplicity of plain HTML5 LocalStorage. HTML5 LocalStorage provides a simple key-value storage, which is restricted in that values can only be strings (convertion can in practice use this for integer and JSON), with a recommended limit of 5 MB\footnote{\href{http://www.w3.org/TR/webstorage/}{http://www.w3.org/TR/webstorage/} - TODO: this should probably be a reference?}. Should this capability not be sufficient, AnyBoard could make use of the Cordova Storage\footnote{Cordova Storage Documentation, on use of Storage and HTML5 LocalStorage - \href{https://cordova.apache.org/docs/en/3.0.0/cordova\_storage\_storage.md.html}{cordova.apache.org/docs/en/3.0.0/cordova\_storage\_storage.md.html}} plugin, which is based on SQLite 3, which could provide file storage and more. 
+
+\subsection{Expand the AnyBoard Entities}
+There are many concepts in different board games, and AnyBoard should incorporate more than those that are included today. Suggestions for new entities are 
+
+\begin{itemize}
+
+\item \textbf{Board and Tiles} - Originally planned to be implemented, but ignored due to time constraints. Today, a token has a simple integer property telling where on the board it is located. AnyBoard does not simplify any logic on a board or movement between them other than a change event on the token and this token property. We believe AnyBoard.Board and AnyBoard.Tile classes  with methods for (1) calculating distance between tiles, (2) whether or not movement between tiles are legal and (3) special properties belonging to tiles would simplify the game development.
+
+\item \textbf{Quest} - or Missions are tasks that require a set of Resources and/or Cards that when completed provides some kind of reward. An example of this is Quests in Lords of Waterdeep (see section \ref{subsec:LoW}) which requires a set of simple resources and provides points.
+
+\item \textbf{Choice} - upon drawing Cards or Events happening, players are often presented with a choice. Per now, the execution of a draw or play event from cards will have to be programmed from scratch, including the choice event.
+
+\item \textbf{Turn} - the flow of the game consists of turns. A developer could save time if he was able to describe a turn. A instance of a turn class could consist of a set of actions, e.g. 1xMovement of pawn, 1xDraw of card, 1xPlay of card, 1xTrade with other player (optional). 
+
+This concept is central to most games, and could help minimize development time.
+
+\end{itemize}
+
+\subsection{Publishing AnyBoard}
+AnyBoard is currently not published or publicly available. Publishing the AnyBoard Library can gain traction and usage among interested developers. Github, or npm\footnote{\href{http://npmjs.com}{npmjs.com} is the package manager/commmunity for Node modules} would be natural place for AnyBoard to be available, as is common among JavaScript libraries. 
+
+\subsection{HTTP-based tokens}
+Currently, AnyBoard is tested with a driver that connects to tokens that communicate over Bluetooth. HTTP-based interfaces are also popular, and we believe that providing examples with HTTP-based drivers could open up for new exiting features. 
+
+One example is a driver for Phillips Hue\footnote{\href{http://www2.meethue.com/no-no/}{meethue.com} - home for Phillips Hue, a digital lightbulb with an HTTP-interface}, which is a lightbulb with an HTTP-interface which is able to change colors and dim upon HTTP-requests. We imagine Hue could be incorporated with a game, to provide both relevant mood to a situation (imagine more red light signaling a threat), or as an informational token of other sorts.
+
+\subsection{Private Space}
+Currently, the intended implementation of private space in AnyBoard-based games are by printing cards that a player keeps to himself. This requires players playing games with private spaces to have a AnyBoard compatible printer, as well as refilling paper and ink.
+
+Another way of implementing private space would be by using several cell phones, where one acts as the main game hub, and the other acts as a private space to each player. This would be more time consuming to set up, and shift the focus further towards a digital focus during play, which we concider a drawback. On the other side, it lowers the barrier for acquiring and playing games that uses cards.
+
+\subsection{Private actions and communication}
+Using the cell phones of each player as a device to interact with could also allow us the capabilites of performing actions or communicating in secret.
+
+In traditional board games, all actions and all communication between players is usualy publicly visible. This is a natural restriction by the fact that the players sit next to each other, being able to see and hear what other players do and say. In digital games on the other hand, people some times able to do actions in secret, or team up to plot against other players.
+
+The fact that traditional board games are so open, and nothing can be performed without other players taking notice, might be one of the main components that make these more social than digital games. Allowing for these features can in other words lower the benefit hybrid games have over digital games. It suffers from the same potential problem as the suggestion for Private Space, in that it diverts the focus from the physical aspect to the digital.
+
+\subsection{QR-codes and barcodes}
+The Bean Printer driver in \emph{examples} folder delivered alongside this thesis demonstrates the capabilites of printing text to cards, using an AdaFruit Mini Thermal Printer\footnote{AdaFruit Mini Thermal Printer: \href{https://learn.adafruit.com/mini-thermal-receipt-printer}{https://learn.adafruit.com/mini-thermal-receipt-printer}} which already exists in the AnyBoard library.
+
+A relatively simple change with the library and bean firmware would allow us to print QR- and barcodes as this is a feature of the AdaFruit printer\footnote{AdaFruit printer QR capabilities: \href{https://learn.adafruit.com/downloads/pdf/mini-thermal-receipt-printer.pdf}{https://learn.adafruit.com/downloads/pdf/mini-thermal-receipt-printer.pdf}}. Printing QR and barcodes allows for cellphone based interactivity, such as providing a phone number, opening a SMS with predefined text or opening URLs. This is provided by Android and iOS by default and does not require the development of a separate standalone mobile application.
+
+The functionality of reading QR and bar codes could be done via Cordova plugins\footnote{QR code capabilities in Cordova-based applications: \href{http://phonegap.com/blog/build/barcodescanner-plugin/}{http://phonegap.com/blog/build/barcodescanner-plugin/}} or via HTML5 GetUserMedia\footnote{GetUserMedia is not supported by all mobile browsers yet – \href{http://caniuse.com/\#search=getusermedia}{http://caniuse.com/\#search=getusermedia}} which would work synegetically with this feature.
+
+We believe that providing this capability can open up for new types of game interactions, that goes outside the original board game concept. For instance, QR codes could link to locations in the real world, sending players on predefined routes doing different tasks and quizes. These could also be done with bluetooth devices, for instance on one location, a printer will print QR code for the next location if you're able to move a color-detecting token over the correct pattern of tiles after seeing the sequence of tiles on your phone once in advance.
+
+\subsection{AnyBoardUI library}
+AnyBoard does currently not provide any means to simplify the creation of user interface or graphical components. This is in part an intentional choice, as we during the development realized how much it would narrow the compatibility with other libraries and JavaScript tools available. [TODO: Reference relevant section in discussion]
+
+However, creating GUI is a sizeable job that can be cumbersome for unexperienced developers. The existing example games attached with this report are simple, HTML-based and unimpressive. By the very least, we think more examples should be provided in order to lower the barrier for new developers. 
+
+Seeing that BoardGames have a set of pretty standard interaction and events, we propose that a UI-module of AnyBoard that implements standard graphical elements is developed and delivered next to the AnyBoard library. We advice against integrating the UI library into the standard library. That way, the tandard library could be used stand-alone and independant of other tools, while the UI-library is directed at developers that are unexperienced with UI-programming. This should at the very least implement elements for 
+\begin{itemize}
+\item Displaying boards created with Tiled
+\item Menu with button and labels.
+\item Buttons and text holders for starting game, reading rules and connecting to tokens
+\item Displaying pawns and their position 
+\item Displaying cards, and providing action buttons
+\item Displaying players and their resources
+\end{itemize}
+
+\subsection{Chrome Cast}
+Chrome Cast\footnote{\href{http://www.chromecast.com}{www.chromecast.com}, \href{https://developers.google.com/cast/docs/developers}{developers.google.com/cast/docs/developers}} is a small device similar to Apple TV, allowing for iPhone, Android and Chrome (browser) applications to display their working PC/Mobile/tablet screen on a TV screen. 
+
+Allowing for games to be cast to a larger screen introduces another digital device to the hybrid board game, and could act as a diversion from the tangible parts. However, using chrome casting is an optional feature, and could be skipped by ussers if it proves distracting. Also, we believe that in games where physical interaction with the phone is kept to minimal and the game hub screen is purely informational, casting to a bigger screen will keep focus on the physical parts, and avoid potentially having to pass around a cell phone. 
+
+Whether or not any new feature in AnyBoard could simplify adding support for Chrome Cast, we have not investigated in. But even an example showcasing how it could be done, could atract potential game developers.
+
+\subsection{Blockly - visual programming}
+Blockly\footnote{\href{https://developers.google.com/blockly/}{developers.google.com/blockly}} is a visual programming language. Visual programming languages are easier to understand and often used in introductionary programming courses. Scratch\footnote{\href{https://scratch.mit.edu/}{scratch.mit.edu}}, a similar language, described their vision in creating Scratch as follows:	
+
+\begin{displayquote}
+\emph{"We wanted to develop an approach to programming that would appeal to people who hadn’t
+previously imagined themselves as programmers."} \cite{resnick2009scratch}
+\end{displayquote}
+
+Programming hybrid board games with AnyBoard (or with other libraries) through a visual programming language such as Blockly could open up for non-technical persons to create their own games. 
+
+\newpage

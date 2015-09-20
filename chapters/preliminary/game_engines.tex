@@ -1,0 +1,70 @@
+\section{Game engines}
+The purpose of a game engine (GE) is to structure the game components and allow reuse of its code in different games. It also provides features for common components of games, such as file loading, audio playing and graphics handling among other things. In large part, the AnyBoard platform is a GE for hybrid board games, albeit a simple one. It also differs in that AnyBoard provides board game entities, and communication with tangible devices. This is unlike typical GEs, that rather focus on timing, sound and graphics. Since creating a GE is a massive task, we would like  to reuse existing open source game engines to include these features in AnyBoard or find game engines that can complement the functionality of AnyBoard when used side by side.
+
+Common features of a GE include:
+\begin{enumerate}
+\item \textbf{Graphics engine/Renderer} – assisting the rendering of graphical elements on the screen. 
+\item \textbf{Map creation tools} - providing an easy way to create maps (or in our case boards), and structures suited for abstracting locations and its properties.
+\item \textbf{Asset handler} - Early loading of game assets can put unnesessary load on memory, while late loading can lead to a low performance. An asset handler loads the game elements at an appropriate time. 
+\item \textbf{Physics Engine and collision detection} - giving the game a realistic feeling of physics. 
+\item \textbf{Artificial Intelligence} - Some game engines provide components to support creating computer-based opponents.
+\item \textbf{Signals and event handler} - With the exception of certain genres, games are commonly based on events intiated by the player, such as clicking buttons or interacting with elements in the game. A game engine often includes mechanisms that helps notify parts of the system that have registered to such events.
+\item \textbf{Other} - Game engines can also provide simplification for networking in order to support multiplayer games or interactions with internet servers.
+\end{enumerate}
+
+The purpose of finding a suitable GE is to enable the development of more complex games in collaboration with AnyBoard. When using an established GE, one can create game with complex graphics, scale graphics, create maps or play sounds more easily than without. If examples of AnyBoard is displayed in collaboration with popular GEs, we might also be able to more quickly recruit developers from that community. 
+\subsection{Criteria}
+
+We've judged our options for a GE in regards to the following criteria:
+\begin{itemize}
+\item Licensing - As with other parts of the software platform, we prefer an open source, free-to-use game engine.
+\item Compatibility – As we have chosen EvoThings (Cordova-based) as cross platform tool, a game engine based on the same programming language (JavaScript) would there be preferable. 
+\item Popularity and activity - We want the software platform to be based on tools that are popular and are being actively developed. We've judged this on 1) Number of developers that have marked the repository as a favorite. 2) Number of code-changes done to the repository the last 12 months
+\item Performance - As one of the drawbacks of Cordova is performance, we wish for the game engine to be as light and efficient as possible. This can be hard to judge without testing, so we have used library size as a proximity to this. We have also looked at whether or not mobile platforms seems to be a target audience for the platform.
+\end{itemize}
+
+\subsection{Candidate game engines}
+There is a large community around JavaScript, and there are a lot of options for a JavaScript-based game engine. Our candidates has been chosen from overview and comparisons by several community resources such as HTML5GameEngine\footnote{\href{https://html5gameengine.com/}{html5gameengine.com}} and Github\footnote{\href{https://github.com/showcases/javascript-game-engines}{github.com/showcases/javascript-game-engines}}. Several were excluded immediately if they clearly didn't meet our criteria.
+
+\begin{table}[ht]
+\begin{minipage}{\textwidth} 
+\begin{tabular}{llllll}
+{\bf Framework} & {\bf License} & {\bf Size\footnote{Size of minified JS libraries. Libraries marked with * are unminified size (minified should be about 60 percent smaller)}} & {\bf Activity\footnote{Files changed/additions/deletions in the 12 months between June 2014 to June 2015. k = thousand}} & {\bf Community\footnote{Number of favorites/Number of contributers to repository pr. June 2015}} \\
+CraftyJS& \cellcolor[HTML]{CDFBCD}MiT & 99KB & \cellcolor[HTML]{CDFBCD}81/7k/3k   & \cellcolor[HTML]{CDFBCD}1772/97 \\
+LimeJS & \cellcolor[HTML]{CDFBCD}Apache & 200KB* & \cellcolor[HTML]{de2d26} \textcolor{white}{5/54/21}  & \cellcolor[HTML]{CDFBCD}1320/30 \\
+ImpactJS& \cellcolor[HTML]{de2d26} \textcolor{white}{Propr.} & & & \\
+Ludei   & \cellcolor[HTML]{de2d26} \textcolor{white}{Propr.} & & & \\
+EnchantJS & \cellcolor[HTML]{CDFBCD}MiT & 225KB* & \cellcolor[HTML]{de2d26} \textcolor{white}{19/202/282} & \cellcolor[HTML]{CDFBCD}1300/25 \\
+MelonJS & \cellcolor[HTML]{CDFBCD}MiT & 168KB & \cellcolor[HTML]{CDFBCD}333/14k/8k & \cellcolor[HTML]{CDFBCD}1367/33 \\
+Quintus & \cellcolor[HTML]{CDFBCD}MiT  & 20KB& \cellcolor[HTML]{FEB24C}17/793/509 & \cellcolor[HTML]{CDFBCD}1000/29 \\
+Phaser & \cellcolor[HTML]{CDFBCD}MiT  & 692KB& \cellcolor[HTML]{CDFBCD}1.1k/230k/117k & \cellcolor[HTML]{CDFBCD}8694/140 \\
+
+\end{tabular}
+\caption {Overview over candidates for game-engine. Preferable properties of the platforms are marked in light green, less preferable in orange, while undesirable properties are marked in dark red.}
+\end{minipage}
+\end{table}
+\subsection{Evaluation}
+We have chosen CraftyJS, Phaser and Quintus to evaluate further. 
+
+All of these have compatibility with with Tiled\footnote{Tiled (\href{http://mapeditor.org}{mapeditor.org}) - an commonly used editor for creating game maps.} - a visual game map editor for creating maps. All three also support our other basic technical requirements, such as signal/event handlers, and have examples that indicate performance beyond our requirements.
+
+\textbf{Quintus} is some way just what we want. It's a simple library that covers our basic technical requirements, and seems to support extendability well. It was originally made as an example for a book on game development, HTML5 Game Development\cite{rettig2012professional}, and is therefore well documented. They say on their own website\footnote{\href{http://www.html5quintus.com/guide/core.md}{html5quintus.com/guide/core.md}} that it \emph{does very little game-wise by itself and provides little more than a backbone for the other modules to build around}.
+
+Its downside is a low level of activity and small community. Its lower amount of activity can to some extent be contributed to lower code base size, but the difference in community from Crafty and Phaser still shows that Quintus is not as well established and polished. On their Github page\footnote{\href{https://github.com/cykod/Quintus}{github.com/cykod/Quintus}} it states \emph{"Warning: Quintus is at a very early stage of development, use at your own risk.*"}.
+
+\textbf{CraftyJS} is a larger library than Quintus, and provides a richer set of built in functionality. Documentation seems to leave us with the impressions of a modular and easily extendable architecture. One comparison of Phaser and Crafty\cite{phaser_vs_craftyjs} has listed this as the main advantage of Crafty. It supports mobile, even though that's not a focus from the looks of their webpage.
+
+\textbf{Phaser} is clearly the most mature and popular of the alternatives we have investigated. Phaser have more game examples and thorough guides than our other candidates. The framework has support for TypeScript and JavaScript in addition to providing an in-browser game editor. Its graphics engine is PixiJS, a standalone webGL renderer which claims performance to be their strength. 
+
+Phaser seems suited for this project in many ways. It's focus is mobile, and provides a scaling manager component for handling various screen sizes. It has the community and guides to make it easily understood and learnt, and feels like a solid component to base our project upon.
+
+Our only concern is the suitability for such a polished product to be integrated in AnyBoard. While it does provide a plugin system, it could be difficult to encapsulate Phaser in a new framework. Users have reported that Phaser can feel clumsy and not modular enough\cite{phaser_vs_craftyjs, search_for_javascript_ge}, which can make it hard to break apart and reuse relevant parts alone.
+
+\subsection{Conclusion}
+Both Quintus, Crafty and Phaser covers our basic criteria. Their differences lies mainly in size, amount of functionality and popularity. The more popular, the more solid it seems, and the less functionality will we be required to make from scratch. On the other hand, it can be harder to encapsulate and reuse only parts of the GE, and the game engine part end up being unnecessary heavy.
+
+In other words, Quinitus is a great choice for learning purposes, and accompanied by its book\cite{rettig2012professional} developers could learn about game engines, HTML5 game development, and then reuse that knowledge and parts or whole of Quintius in collaboration with AnyBoard.
+
+Phaser on the other hand, seems to have a great community behind it, and has an appealing mobile-first focus. We believe creating examples with Phaser could spark interest among its large community and existing developers. This GE could also be used in collaboration with AnyBoard simplify the making of professional and polished games. However, its size and complexity might prove too difficult to dissect and integrate with AnyBoard.
+
+Due to these observations, and the very dynamic and active environment around game development in JavaScript, we will attempt to create AnyBoard as a \emph{standalone} platform, independent of other GEs. This will allow developers to use their own preferred library in collaboration with AnyBoard. \emph{When providing examples where a GE is needed, we will go for Phaser} due to it having the largest community.

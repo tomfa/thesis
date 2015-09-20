@@ -1,0 +1,114 @@
+\section{Cross platform tools} \label{sec:cpt}
+One of the main goals of the software platform is that it should be easily accessable to use and develop on. Since we're in the early of development of the platform, the tools we choose should restrict us in the least amount of way, regarding technical capabilities. The purpose of using a cross platform tool is being able to develop for multiple platforms at once, and hence lower the development time for both us and developers making use of AnyBoard.
+
+In order to lower barrier for new developers or other users to use the platform, AnyBoard should ideally be based on free to use tools, and written in popular languages. Code written in AnyBoard should be deployable without or with only minor modification to multiple popular platforms. Support for deploying to iOS and Android platforms is chosen as a minimum requirement, due to them covering the largest audience\footnote{According to \href{http://en.wikipedia.org/wiki/List_of_mobile_software_distribution_platforms}{http://en.wikipedia.org/wiki/List\_of\_mobile\_software\_distribution\_platforms} (Accessed 2015-05-13)}.
+
+\subsection{Criterias}
+We've judged options in regard to the following criteria:
+\begin{itemize}
+\item{Popularity of programming language – Projects based on languages popular in open source communities have a larger pool of potential developers to contribute to the platform}
+\item{Knowledge of programming language with regards to team – The programming languages chosen should be of some familiarity to the people involved in this project }
+\item{License and cost to use – Cost is a barrier for developers to contribute to the project. Like with hardware, required software should be as cheap as possible to aquire. An open source framework would be preferrable, not to create restrictions on possible functionality of the software.}
+\item{Existing bluetooth capabilities - BlueTooth functionality is a requirement for the basic functionality of AnyBoard. A tool with good BlueTooth support would be preferable.}
+\end{itemize}
+
+\subsection{Candidate cross-platform tools}
+The candidates were chosen from comparisons and benchmarks of cross platform tools\cite{appindex_cpt_comparison, developereconomics_cpt_comparison, thinkapps_cpt_comparison, research2guidance_cpt_benchmark2014}. Some were excluded immediately if they clearly didn't meet  our criterias, while a couple were added due to our previous experience with them.
+
+\begin{landscape}
+
+\begin{table}[ht]
+\begin{minipage}{\textwidth} 
+\begin{tabular}{llllll}
+\textbf{Name}         & \textbf{Language}              & \textbf{Bluetooth}                                      & \textbf{License}                    & \textbf{Free}                                                   & \textbf{Popularity} \\
+
+
+PhoneGap\footnote{\href{http://www.phonegap.com}{phonegap.com} - The original name for the Apache Cordova framework. PhoneGap is essentially Cordova with additional but optional pay-to-use services.}              & \cellcolor[HTML]{CDFBCD}JS     & \cellcolor[HTML]{CDFBCD}Yes                             & \cellcolor[HTML]{CDFBCD}Apache & \cellcolor[HTML]{CDFBCD}Yes               & \cellcolor[HTML]{CDFBCD}Very high (> 60\%) \\
+
+Appcelerator \footnote{\href{http://www.appcelerator.com/}{appcelerator.com} – Compiles JS to native code. } & \cellcolor[HTML]{CDFBCD}JS     & \cellcolor[HTML]{FEB24C}possible (not via Appcelerator API) & \cellcolor[HTML]{CDFBCD}Apache      & \cellcolor[HTML]{CDFBCD}Yes  & \cellcolor[HTML]{CDFBCD}High (> 40\%)  \\
+
+
+Cocos2d\footnote{\href{http://cocos2d.org/}{cocos2d.org} - Cross-platform game engine available in both JS, Lua and C++. Compiles to Mac OSx, Windows, Android and iOS.}               & \cellcolor[HTML]{CDFBCD}C++/JS & \cellcolor[HTML]{FEB24C}possible (not via Cocos API)    & \cellcolor[HTML]{CDFBCD}MiT         & \cellcolor[HTML]{CDFBCD}Yes                                            & \cellcolor[HTML]{FEB24C}Medium (> 20\%) \\
+
+
+Unity3d\footnote{\href{http://unity3d.com}{unity3d.com} - Cross-platform framework built on an advanced game engine. Free Personal edition is limited.}               & \cellcolor[HTML]{CDFBCD}C\#/JS & \cellcolor[HTML]{FEB24C}possible (not via Unity API)    & \cellcolor[HTML]{de2d26} \textcolor{white}{Proprietary} & \cellcolor[HTML]{FEB24C}Yes*& \cellcolor[HTML]{CDFBCD}Very high (> 60\%)\\
+
+
+Corona\footnote{\href{http://coronalabs.com/}{coronalabs.com} – *Limited version without access to native calls are free to use. Due to the limitations of the API and license, Bluetooth communication is unavailable for free version.}                & \cellcolor[HTML]{de2d26} \textcolor{white}{Lua}    & \cellcolor[HTML]{FEB24C}possible (not via Corona API)   & \cellcolor[HTML]{de2d26} \textcolor{white}{Proprietary} & \cellcolor[HTML]{de2d26} \textcolor{white}{Yes*}          & \cellcolor[HTML]{CDFBCD}High (> 40\%) \\
+
+
+Qt\footnote{\href{http://qt.io}{qt.io}. *Free to use for open-source, non-commercial applications}                   & \cellcolor[HTML]{de2d26} \textcolor{white}{C++}    & \cellcolor[HTML]{CDFBCD}Yes                             & \cellcolor[HTML]{D8FFD7}LGPL        & \cellcolor[HTML]{D8FFD7}Yes*& \cellcolor[HTML]{CDFBCD}High (> 40\%) \\
+
+Xamarin\footnote{\href{http://xamarin.com}{xamarin.com} – compiles C\# code to native applications. Free version has limited features.}               & \cellcolor[HTML]{CDFBCD}C\#    & \cellcolor[HTML]{FEB24C}possible (not via Xamarin API)  & \cellcolor[HTML]{de2d26} \textcolor{white}{Proprietary} & \cellcolor[HTML]{FEB24C}Yes*                    & \cellcolor[HTML]{CDFBCD}High (> 40\%) \\
+
+
+Kivy\footnote{\href{http://kivy.org}{kivy.org} - Python-based framework that compiles to mobile (iOS and Android) as well as Windows, OSx and Linux. Popularity unknown, but presumed to be low compared to other alternatives.}                  & \cellcolor[HTML]{CDFBCD}Python & \cellcolor[HTML]{FEB24C}possible (not via Kivy API)     & \cellcolor[HTML]{CDFBCD}MiT         & \cellcolor[HTML]{CDFBCD}Yes                                            & Unknown \\
+
+
+EvoThings\footnote{\href{http://evothings.com/}{evothings.com} - Light framework based on Cordova, with libraries centered around communication with small hardware objects (Internet of Things) and simplifying testing. Popularity unknown, but benefits from being based on Cordova. }             & \cellcolor[HTML]{CDFBCD}JS     & \cellcolor[HTML]{CDFBCD}Yes                             & \cellcolor[HTML]{CDFBCD}Apache      & \cellcolor[HTML]{CDFBCD}Yes & Unknown \\                                            
+
+\end{tabular}
+\caption {Overview over initial candidates for cross-platform compatibility. Preferable properties of the platforms are marked in light green, less preferable in orange, while undesirable properties are marked in dark red. Popularity based on developers awareness in Cross-Platform Tool Benchmarking 2014\cite{research2guidance_cpt_benchmark2014}.}
+\end{minipage}
+\end{table}
+\end{landscape}
+
+\subsection{Evaluation}
+Cross-platform tools (CPTs) are increasing in popularity. Some of them compiles to a native application on each platform (Unity, Cocos, Appcelerator), while the others run in an "in-app browser" (PhoneGap, EvoThings), essentially acting as web pages. The latter will in most cases simplify the development and make an easier transition for existing web-developers, at the price of performance and functionality. Such tools might therefore not be an alternative for graphic-intensive games or where access to certain parts of the phones functionality. 
+
+With the exception of EvoThings, BlueTooth capabilities is not an area of focus for any of the tools. They do however support writing own libraries or plugins or give developers the opportunity to write native code that can access bluetooth capabilities on the phone. We could also find support or plugins for PhoneGap and Qt to simplify BlueTooth access for us.
+
+We chose three different frameworks to further investigate based on our initial findings. PhoneGap, due to it's licensing and popularity; EvoThings, for being closely related to PhoneGap and adding functionality suited for our purpose, and lastly Appcelerator Titanium for the comparison of in-browser vs native app platforms.
+
+\subsubsection{PhoneGap}
+PhoneGap by Adobe/Nitobi was the original creator of Apache Cordova, which is today the most popular engine for creating mobile cross-platform in-browser applications. The Cordova engine provides basic phone functionality such as Camera, GPS and vibration to a web based environment for creating apps. In 2011, Adobe donated the Cordova code-base to the Apache Foundation, and PhoneGap instead focused on providing services on top of the engine, such as marketing, analysis, building, support and training. PhoneGap consists today of both an Open Source fork of Apache Cordova in addition to these services. The services are optional, and most of them are pay-to-use.
+
+\begin{itemize}
+\item{+ Based on well known Cordova platform}
+\item{+ No or little additional code necessary to support different platforms}
+\item{- Compiles to in browser apps, giving reduced performance}
+\end{itemize}
+
+
+\subsubsection{EvoThings}
+Evothings is a toolkit based on the Cordova platform, as PhoneGap. EvoThings is centered around the idea of "Internet of things" or "ubiquitous" computing, and it provides simplifications for communicating with several different types of tokens, as well as code examples. 
+
+While the EvoThings toolkit itself is not very popular, valid Cordova code will be valid in EvoThings. An app developed with EvoThings could also be ported to other Cordova-based frameworks with no or only small changes in the code base. This has the added benefit of making existing Cordova/PhoneGap community relevant for development on this platform.
+
+The additional features included in EvoThings compared to Apache Cordova is a simplification of testing by allowing instant deployment to your phone in the testing phase, using a EvoThings app. In addition, libraries to communicate using Bluetooth with external hardware is included.
+
+\begin{itemize}
+\item{+ Toolkit allows instant deployment to phones through EvoThings test suite app}
+\item{+ Extra support and examples for relevant communication with external hardware through bluetooth}
+\item{+ Based on well known Cordova platform, making a large existing community relevant for this platform}
+\item{+ No or little additional code necessary to support different platforms}
+\item{- Compiles to in browser apps, giving reduced performance}
+\end{itemize}
+
+\subsubsection{Appcelerator Titanium}
+Appcelerator Titanium has a different approach than the Cordova-engine on how to create cross-platform applications. Appcelerator themselves compare Appcelerator Titanium vs PhoneGap and explain their differences. Some of their main points\footnote{According to \href{http://www.appcelerator.com/blog/2012/05/comparing-titanium-and-phonegap/}{http://www.appcelerator.com/blog/2012/05/comparing-titanium-and-phonegap/} - "Comparing Titanium and PhoneGap" (May, 2012)} is that:
+
+\emph{The barrier to entry in using PhoneGap to package web pages as native apps is extremely low.} - Starting developing with PhoneGap requires very little knowledge or experience with creating mobile applications, or knowing the difference between platforms. Knowledge of creating web applications is sufficient for starting to create PhoneGap applications for different platforms.
+
+\emph{Very few native APIs are exposed to PhoneGap applications by default} - While PhoneGap by default only provides functionality that are common among different phones, Titanium has a richer set of functionality available from the phone. A Titanium-based app can be better tailored to fit and use all of the capabilities of a phone.
+
+\emph{The quality of the user interface in a PhoneGap application will vary based on the quality of the web view and rendering engine on the platform.} - Since the user interface of PhoneGap is based on an in-browser app, it will not look like a native app with native controls and buttons. The performance of a browser interface will also be slower than interfaces made up of the phones native controls. In addition, due to browser differences, the interface might look different between platforms. 
+
+\emph{The scope of the Titanium API makes the addition of new platforms difficult – implementing the Titanium API on a new native platform is a massive undertaking}. The price to pay for being able to create tailored apps for each platform is a lower code re-usage. Considerably more time must be spent for porting an application from one platform to another. 
+
+\begin{itemize}
+\item{+ Compiles to native code, providing better performance than in-browser apps}
+\item{+ Can be better tailored by use of native UI of each OS.}
+\item{+ Provides a richer set of phone functionality}
+\item{+ Has optional pay-to-use platforms}
+\item{- Higher barrier for new developers}
+\item{- Lower code re-usage (60-90\%) than in-browser-apps, requiring effort to port app to different platforms}
+\end{itemize}
+
+\subsection{Conclusion}
+From our findings we interpret that the Cordova-platform has a lower barrier for entry than Titanium. We believe that the performance advantage, and access to native UI of Titanium in our case is of less importance than keeping this barrier to a minimum, and holding code re-usage to a maximum. This is large part due to our low need for a high performance app, and our requirement of low barrier to contribute to the platform \ref{sec:high_level_requirements}.
+
+Between PhoneGap and EvoThings, the difference seems to be small due to them both being based on a Cordova engine. Applications made in EvoThings are designed to be built as Cordova apps\footnote{As shown in \href{http://evothings.com/doc/build/cordova-guide.html}{http://evothings.com/doc/build/cordova-guide.html}}, which are compatible with PhoneGap. Therefore, we have chosen to develop and test in the EvoThings framework. Its suitability in our project with regards to Bluetooth devices and communication with tangible hardware is unmatched. It also provides a few very handy development features, such as instantaneous deployment to the phone. This allows for rapid testing and development .
+If the services PhoneGap provides is of interest later, a transition to using that is expected to go swiftly.
+
+
